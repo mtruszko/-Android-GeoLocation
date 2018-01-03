@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1001099409871",
+    "firebase_url": "https://prj4and.firebaseio.com",
+    "project_id": "prj4and",
+    "storage_bucket": "prj4and.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001099409871:android:813d26db61e4a5b5",
+        "android_client_info": {
+          "package_name": "com.example.maro.prj4and"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001099409871-5bl0g5pf83qhvs1lp98k7vcjueqv4bo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maro.prj4and",
+            "certificate_hash": "1d29c410014e33a7d31e5baf37bffeb300711ffe"
+          }
+        },
+        {
+          "client_id": "1001099409871-tm1s72m7fq9re32t0n7vbgqd2h49hnbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmFHNSP6DmRbtq8J2UM_vbX650nX4ialQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1001099409871-tm1s72m7fq9re32t0n7vbgqd2h49hnbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
