@@ -5,5 +5,5 @@ package com.example.maro.prj4and.Place
  */
 data class Place(val name: String,
                  val desc: String,
-                 val radius: Float) {
+                 val radius: Int) {
 }

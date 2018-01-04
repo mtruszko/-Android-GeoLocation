@@ -18,7 +18,6 @@ object FirebaseDB {
                 .set(product)
     }
 
-
     fun readListOfProducts(completion: (List<Place>) -> Unit) {
 
         db.collection("places")
