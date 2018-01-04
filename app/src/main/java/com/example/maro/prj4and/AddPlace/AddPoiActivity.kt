@@ -96,7 +96,7 @@ class AddPoiActivity : AppCompatActivity() {
             toast.show()
         }
 
-        val place = Place(etName.text.toString(), etDesc.text.toString(), rad, loc!!)
+        val place = Place(etName.text.toString(), etDesc.text.toString(), rad, loc!!.latitude.toFloat(), loc!!.longitude.toFloat())
 
         FirebaseDB.saveToFirebase(place)
     }

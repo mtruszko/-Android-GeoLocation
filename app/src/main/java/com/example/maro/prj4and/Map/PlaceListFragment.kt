@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.maro.prj4and.Map.dummy.DummyContent
+import com.example.maro.prj4and.Place.Place
 
 import com.example.maro.prj4and.R
-import com.example.maro.prj4and.Map.dummy.DummyContent
-import com.example.maro.prj4and.Map.dummy.DummyContent.DummyItem
 
 /**
  * A fragment representing a list of Items.
@@ -26,7 +26,12 @@ import com.example.maro.prj4and.Map.dummy.DummyContent.DummyItem
  * fragment (e.g. upon screen orientation changes).
  */
 class PlaceListFragment : Fragment() {
-    // TODO: Customize parameters
+    var pois: List<Place> = emptyList()
+    set(value) {
+        field = value
+        adapter?.pois = value
+    }
+    private var adapter: MyPlaceRecyclerViewAdapter? = null
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
 
@@ -42,16 +47,16 @@ class PlaceListFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_place_list, container, false)
 
-        // Set the adapter
-//        if (view is RecyclerView) {
-//            val context = view.getContext()
-//            if (mColumnCount <= 1) {
-//                view.layoutManager = LinearLayoutManager(context)
-//            } else {
-//                view.layoutManager = GridLayoutManager(context, mColumnCount)
-//            }
-//            view.adapter = MyPlaceRecyclerViewAdapter(DummyContent.ITEMS, mListener)
-//        }
+        if (view is RecyclerView) {
+            val context = view.getContext()
+            if (mColumnCount <= 1) {
+                view.layoutManager = LinearLayoutManager(context)
+            } else {
+                view.layoutManager = GridLayoutManager(context, mColumnCount)
+            }
+            view.adapter = MyPlaceRecyclerViewAdapter(mListener)
+            adapter = view.adapter as MyPlaceRecyclerViewAdapter
+        }
         return view
     }
 
@@ -81,15 +86,12 @@ class PlaceListFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem)
+        fun onListFragmentInteraction(item: DummyContent.DummyItem)
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         fun newInstance(columnCount: Int): PlaceListFragment {
             val fragment = PlaceListFragment()
             val args = Bundle()
