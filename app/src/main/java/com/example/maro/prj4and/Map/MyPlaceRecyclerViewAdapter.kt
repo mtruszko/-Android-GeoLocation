@@ -32,8 +32,8 @@ class MyPlaceRecyclerViewAdapter(private val mListener: OnListFragmentInteractio
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mItem = pois.get(position)
-        holder.mIdView.setText(pois.get(position).name)
-        holder.mContentView.setText(pois.get(position).desc)
+        holder.mIdView.setText("Name: " + pois.get(position).name + " \nDesc: " + pois.get(position).desc + " \nRadius: " + pois.get(position).radius)
+        holder.mContentView.setText("La: " + pois.get(position).la + " \nLo:" + pois.get(position).lo)
 
         holder.mView.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {

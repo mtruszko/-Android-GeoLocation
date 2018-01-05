@@ -139,7 +139,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
             val llpoi = LatLng(poi.la.toDouble(), poi.lo.toDouble())
             gMap?.addMarker(MarkerOptions().position(llpoi).title(poi.name))
             gMap?.addCircle(CircleOptions().center(llpoi).radius(poi.radius.toDouble()))
-            val cameraPosition = CameraPosition.Builder().target(llpoi).zoom(12f).build()
+            val cameraPosition = CameraPosition.Builder().target(llpoi).zoom(2f).build()
             gMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }

@@ -46,6 +46,7 @@ class AddPoiActivity : AppCompatActivity() {
                     PERMISSION_ACCESS_FINE_LOCATION)
         } else {
             getLocation()
+            addProximityAlerts()
         }
 
     }
@@ -54,6 +55,7 @@ class AddPoiActivity : AppCompatActivity() {
         when (requestCode) {
             PERMISSION_ACCESS_FINE_LOCATION -> if (!grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                getLocation()
+                addProximityAlerts()
             } else {
                 Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show()
             }
@@ -123,19 +125,26 @@ class AddPoiActivity : AppCompatActivity() {
         val place = Place(etName.text.toString(), etDesc.text.toString(), rad, loc!!.latitude.toFloat(), loc!!.longitude.toFloat())
 
         FirebaseDB.saveToFirebase(place)
-
-        addProximityAlert(loc!!.latitude, loc!!.longitude, rad.toFloat())
+        addProximityAlert(place)
     }
 
-    private fun addProximityAlert(latitude: Double, longitude: Double, radius: Float) {
+    fun addProximityAlerts() {
+        FirebaseDB.readListOfProducts {
+            for (place in it) {
+                addProximityAlert(place)
+            }
+        }
+    }
+
+    private fun addProximityAlert(place: Place) {
 
         val intent = Intent(PROX_ALERT_INTENT)
         val proximityIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
 
         locationManager?.addProximityAlert(
-                latitude, // the latitude of the central point of the alert region
-                longitude, // the longitude of the central point of the alert region
-                radius, // the radius of the central point of the alert region, in meters
+                place.la.toDouble(), // the latitude of the central point of the alert region
+                place.lo.toDouble(), // the longitude of the central point of the alert region
+                place.radius.toFloat(), // the radius of the central point of the alert region, in meters
                 -1, // time for this proximity alert, in milliseconds, or -1 to indicate no expiration
                 proximityIntent // will be used to generate an Intent to fire when entry to or exit from the alert region is detected
         )

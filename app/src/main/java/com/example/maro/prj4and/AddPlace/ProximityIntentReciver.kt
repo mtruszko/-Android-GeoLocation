@@ -7,17 +7,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
-import android.support.v7.app.NotificationCompat
 import android.util.Log
-import com.example.maro.prj4and.R.mipmap.ic_launcher
-import com.example.maro.prj4and.MainActivity
 import com.example.maro.prj4and.R
-import com.example.maro.prj4and.R.mipmap.ic_launcher
-import android.app.NotificationChannel
-
-
-
-
 
 
 /**
@@ -33,32 +24,28 @@ class ProximityIntentReceiver : BroadcastReceiver() {
         val entering = intent.getBooleanExtra(key, false)
 
         if (entering) {
-            Log.d(javaClass.simpleName, "entering")
+            Notification(context, "Entering")
         } else {
-            Log.d(javaClass.simpleName, "exiting")
+            Notification(context, "Exiting")
         }
-
-        Notification(context, "ssssss")
     }
 
     fun Notification(context: Context, message: String) {
-        val strtitle = "aaa"
+        val strtitle = "proj4and"
         val intent = Intent(context, NotificationView::class.java)
         intent.putExtra("title", strtitle)
         intent.putExtra("text", message)
         val pIntent = PendingIntent.getActivity(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val builder = Notification.Builder(
-                context)
+        val builder = Notification.Builder(context)
                 .setSmallIcon(R.drawable.cast_ic_notification_small_icon)
                 .setTicker(message)
-                .setContentTitle("aaa")
+                .setContentTitle("proj4and")
                 .setContentText(message)
                 .addAction(R.drawable.cast_ic_notification_small_icon, "Action Button", pIntent)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-                .setChannelId("dddd")
 
         val notificationmanager = context
                 .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
