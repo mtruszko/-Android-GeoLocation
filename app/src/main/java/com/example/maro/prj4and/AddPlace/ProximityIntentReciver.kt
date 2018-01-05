@@ -22,11 +22,14 @@ class ProximityIntentReceiver : BroadcastReceiver() {
         val key = LocationManager.KEY_PROXIMITY_ENTERING
 
         val entering = intent.getBooleanExtra(key, false)
+        val name = intent.getStringExtra("PROX_ALERT_INTENT_NAME")
+        val desc = intent.getStringExtra("PROX_ALERT_INTENT_DESC")
+
 
         if (entering) {
-            Notification(context, "Entering")
+            Notification(context, "Entering" + name + " " + desc)
         } else {
-            Notification(context, "Exiting")
+            Notification(context, "Exiting" + name + " " + desc)
         }
     }
 

@@ -139,6 +139,8 @@ class AddPoiActivity : AppCompatActivity() {
     private fun addProximityAlert(place: Place) {
 
         val intent = Intent(PROX_ALERT_INTENT)
+        intent.putExtra(PROX_ALERT_INTENT_NAME, place.name)
+        intent.putExtra(PROX_ALERT_INTENT_DESC, place.desc)
         val proximityIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
 
         locationManager?.addProximityAlert(
@@ -153,4 +155,6 @@ class AddPoiActivity : AppCompatActivity() {
         registerReceiver(ProximityIntentReceiver(), filter)
     }
     private val PROX_ALERT_INTENT = "ACTION_PROXIMITY_ALERT"
+    private val PROX_ALERT_INTENT_NAME = "PROX_ALERT_INTENT_NAME"
+    private val PROX_ALERT_INTENT_DESC = "PROX_ALERT_INTENT_DESC"
 }
