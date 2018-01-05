@@ -23,9 +23,9 @@ class NotificationView : AppCompatActivity() {
         setContentView(R.layout.activity_notification_view)
 
         // Create Notification Manager
-        val notificationmanager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        // Dismiss Notification
-        notificationmanager.cancel(0)
+//        val notificationmanager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        // Dismiss Notification
+//        notificationmanager.cancel(0)
 
         // Retrive the data from MainActivity.java
 //        val i = intent

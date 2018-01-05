@@ -154,7 +154,7 @@ class AddPoiActivity : AppCompatActivity() {
         val filter = IntentFilter(PROX_ALERT_INTENT)
         registerReceiver(ProximityIntentReceiver(), filter)
     }
-    private val PROX_ALERT_INTENT = "ACTION_PROXIMITY_ALERT"
-    private val PROX_ALERT_INTENT_NAME = "PROX_ALERT_INTENT_NAME"
-    private val PROX_ALERT_INTENT_DESC = "PROX_ALERT_INTENT_DESC"
+     val PROX_ALERT_INTENT = "ACTION_PROXIMITY_ALERT"
+     val PROX_ALERT_INTENT_NAME = "PROX_ALERT_INTENT_NAME"
+     val PROX_ALERT_INTENT_DESC = "PROX_ALERT_INTENT_DESC"
 }

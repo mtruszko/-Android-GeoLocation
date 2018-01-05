@@ -7,13 +7,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
-import android.util.Log
 import com.example.maro.prj4and.R
 
-
-/**
- * Created by maro on 05.01.2018.
- */
 
 class ProximityIntentReceiver : BroadcastReceiver() {
 
@@ -22,14 +17,14 @@ class ProximityIntentReceiver : BroadcastReceiver() {
         val key = LocationManager.KEY_PROXIMITY_ENTERING
 
         val entering = intent.getBooleanExtra(key, false)
-        val name = intent.getStringExtra("PROX_ALERT_INTENT_NAME")
-        val desc = intent.getStringExtra("PROX_ALERT_INTENT_DESC")
+        val name = intent.extras.getString("PROX_ALERT_INTENT_NAME")
+        val desc = intent.extras.getString("PROX_ALERT_INTENT_DESC")
 
 
         if (entering) {
-            Notification(context, "Entering" + name + " " + desc)
+            Notification(context, "Entering " + name + " " + desc)
         } else {
-            Notification(context, "Exiting" + name + " " + desc)
+            Notification(context, "Exiting " + name + " " + desc)
         }
     }
 
