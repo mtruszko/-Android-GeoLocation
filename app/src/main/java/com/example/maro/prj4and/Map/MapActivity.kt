@@ -6,6 +6,9 @@ import com.example.maro.prj4and.Place.FirebaseDB
 import com.example.maro.prj4and.Place.Place
 import com.example.maro.prj4and.R
 import kotlinx.android.synthetic.main.activity_map.*
+import com.google.android.gms.maps.SupportMapFragment
+
+
 
 class MapActivity : AppCompatActivity() {
 
@@ -28,5 +31,6 @@ class MapActivity : AppCompatActivity() {
 
     fun update(places: List<Place>) {
         (pageAdapter.getItem(0) as PlaceListFragment).pois = places
+        (pageAdapter.getItem(1) as MapFragment).pois = places
     }
 }

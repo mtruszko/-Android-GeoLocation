@@ -16,12 +16,20 @@ import com.example.maro.prj4and.Place.Place
 import com.example.maro.prj4and.R
 import kotlinx.android.synthetic.main.activity_add_poi.*
 import java.lang.Integer.parseInt
+import android.content.IntentFilter
+import android.app.PendingIntent
+import android.content.Intent
+import android.provider.Settings
 
 
 class AddPoiActivity : AppCompatActivity() {
     var locationManager : LocationManager? = null
     val PERMISSION_ACCESS_FINE_LOCATION: Int = 99
     var loc: Location? = null
+    set(value) {
+        field = value
+        setupTextViews()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +67,19 @@ class AddPoiActivity : AppCompatActivity() {
 
 //        tvLocation.text = "" + location.longitude + ":" + location.latitude
 
+        if (!(locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER)!!)) {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+
+        val location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location == null) {
+            Toast.makeText(this, "No last known location. Aborting...",
+                    Toast.LENGTH_LONG).show()
+
+        } else {
+            loc = location
+        }
+
         try {
             locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener);
         } catch(ex: SecurityException) {
@@ -66,9 +87,12 @@ class AddPoiActivity : AppCompatActivity() {
         }
     }
 
+    fun setupTextViews() {
+        tvLocation?.text = "Longitude: " + loc?.longitude + "\nLatitude: " + loc?.latitude
+    }
+
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            tvLocation.text = "Longitude: " + location.longitude + "\nLatitude: " + location.latitude
             loc = location
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -99,5 +123,25 @@ class AddPoiActivity : AppCompatActivity() {
         val place = Place(etName.text.toString(), etDesc.text.toString(), rad, loc!!.latitude.toFloat(), loc!!.longitude.toFloat())
 
         FirebaseDB.saveToFirebase(place)
+
+        addProximityAlert(loc!!.latitude, loc!!.longitude, rad.toFloat())
     }
+
+    private fun addProximityAlert(latitude: Double, longitude: Double, radius: Float) {
+
+        val intent = Intent(PROX_ALERT_INTENT)
+        val proximityIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+        locationManager?.addProximityAlert(
+                latitude, // the latitude of the central point of the alert region
+                longitude, // the longitude of the central point of the alert region
+                radius, // the radius of the central point of the alert region, in meters
+                -1, // time for this proximity alert, in milliseconds, or -1 to indicate no expiration
+                proximityIntent // will be used to generate an Intent to fire when entry to or exit from the alert region is detected
+        )
+
+        val filter = IntentFilter(PROX_ALERT_INTENT)
+        registerReceiver(ProximityIntentReceiver(), filter)
+    }
+    private val PROX_ALERT_INTENT = "ACTION_PROXIMITY_ALERT"
 }
